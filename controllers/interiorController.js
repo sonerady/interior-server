@@ -2,7 +2,6 @@ const fs = require("fs");
 const path = require("path");
 const fetch = require("node-fetch");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { GoogleAIFileManager } = require("@google/generative-ai/server");
 const { createClient } = require("@supabase/supabase-js");
 
 // Supabase istemcisini oluştur
