@@ -1,0 +1,41 @@
+# Ortam değişkenleri
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+
+# Bağımlılıklar
+/node_modules
+/package-lock.json
+/yarn.lock
+/pnpm-lock.yaml
+
+# Loglar
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Üretim çıktıları
+/dist
+/build
+/out
+
+# Önbellek dizinleri
+.npm
+.eslintcache
+.cache
+.pnp
+.pnp.js
+
+# Sistem dosyaları
+.DS_Store
+Thumbs.db
+
+# IDE dosyaları
+/.idea
+/.vscode
+*.swp
+*.swo 
