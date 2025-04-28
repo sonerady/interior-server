@@ -47,7 +47,7 @@ router.post(
 );
 
 // Görüntü iyileştirme route'u (Clarity Upscaler)
-router.post("/enhance-image", interiorController.enhanceImageWithClarity);
+router.post("/create-redesign", interiorController.createRedesign);
 
 // Tahmin durumu kontrol route'u
 router.get(
