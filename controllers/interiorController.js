@@ -88,19 +88,20 @@ Sadece promptu üret, başka açıklama veya ek metin yazma. Prompt en az 500 ke
       // Sadece metin tabanlı promptu kullan (görüntüsüz)
       promptContent = [
         {
-          text: `Create an extremely detailed and richly furnished interior design prompt based on the user's desired style (${userPrompt}).
+          text: `Create an extremely detailed and well-furnished interior design prompt based on the user's desired style (${userPrompt}).
           
           The prompt must follow these rules:
           1. Assume a modern, spacious room structure with plain white walls, wide windows, and wooden or glossy flooring.
-          2. Carefully observe the provided empty room image, and using the user's desired style (${userPrompt}), richly furnish and decorate the entire space, ensuring that every part of the room is utilized with furniture, accessories, decorations, rugs, lighting, art pieces, plants, shelves, and small decorative objects.
+          2. Carefully observe the provided empty room image, and using the user's desired style (${userPrompt}), furnish and decorate the entire space, ensuring that every part of the room is utilized with furniture, accessories, decorations, rugs, lighting, art pieces, plants, shelves, and small decorative objects.
           3. Describe in great detail the architectural elements such as walls, windows, flooring, and ceiling, and integrate them naturally into the design.
           4. Fill the space fully — include sofas, armchairs, coffee tables, side tables, bookshelves, cabinets, bar carts, consoles, rugs, plants, vases, sculptures, chandeliers, wall lights, table lamps, floor lamps, art on the walls, and any additional decorative items; leave no area empty or barren.
           5. Explain clearly and naturally the placement, positioning, and relationships between all furniture and objects within the space.
-          6. Describe the atmosphere, color palette, textures, material choices, lighting schemes, and overall mood in a richly descriptive, flowing narrative.
+          6. Describe the atmosphere, color palette, textures, material choices, lighting schemes, and overall mood in a descriptive, flowing narrative.
           7. Write the entire prompt as one continuous, fluid sentence, without using bullet points, numbering, or breaking into multiple sentences.
           8. The prompt must begin with "Design a..." and proceed in an immersive, visual storytelling style.
-          9. Use expressive language to vividly paint the image of the room, emphasizing abundance, richness, and harmony.
-          10. The final prompt must be at least 500 words long, extremely detailed, visually rich, and written as if guiding an interior artist to recreate the space perfectly.`,
+          9. Use expressive language to vividly paint the image of the room, emphasizing balance, comfort, and harmony.
+          10. The final prompt must be at least 500 words long, extremely detailed, visually rich, and written as if guiding an interior artist to recreate the space perfectly.
+          11. Avoid any references to luxury, opulence, or extravagance in the design description.`,
         },
       ];
     }
