@@ -54,24 +54,29 @@ async function createPromptWithGemini(userPrompt) {
       promptContent = [
         {
           inlineData: {
-            data: base64Data,
-            mimeType: mimeType,
+            data: base64Image,
+            mimeType: "image/png",
           },
         },
         {
-          text: `TASK: Analyze the provided room photograph METICULOUSLY and generate an extremely detailed interior design prompt based on the user's desired style: "${userPrompt}".
+          text: `Bu boş oda fotoğrafına bakarak, kullanıcının istediği tarza uygun çok detaylı bir iç mekan tasarımı promptu oluştur.
 
-STRICT RULES & CONSTRAINTS:
-1.  **ARCHITECTURAL FIDELITY (CRITICAL RULE):** You MUST strictly adhere to the VISIBLE existing architectural structure shown in the photograph. The position, shape, size, and type of walls, windows, doors, ceilings, floors, and any other fixed structural elements (columns, niches, etc.) MUST NOT be altered. Describe these existing elements accurately within the prompt.
-2.  **PROHIBITIONS:** DO NOT add new windows, doors, walls, balconies, or stairs. DO NOT change the size, shape, or location of existing ones. DO NOT alter the ceiling height or type. DO NOT invent or describe exterior views (cityscape, nature, etc.) UNLESS they are CLEARLY VISIBLE through the windows in the original photograph. If the view is not visible or unclear, MAKE NO ASSUMPTIONS and DO NOT ADD a view description. Maintain the room's fundamental geometry and proportions.
-3.  **FOCUS:** Your task is SOLELY interior decoration and furnishing. Based on the user's style ("${userPrompt}"), populate the room ONLY with furniture (sofas, tables, chairs), lighting fixtures (chandeliers, lamps), rugs/carpets, window treatments (curtains, blinds), plants, artwork, shelves, accessories, and decorative objects.
-4.  **PLACEMENT:** Describe the placement and arrangement of all furniture and objects LOGICALLY and REALISTICALLY within the actual dimensions and layout of the room shown in the photograph. Clearly state the relationships between items (e.g., "a coffee table placed in front of the sofa," "a reading nook positioned by the window").
-5.  **DETAIL LEVEL:** Richly describe the color palette, materials (wood types, metal finishes, fabric textures), textures, lighting atmosphere (natural light as visible, artificial sources, shadows), and overall ambiance in a descriptive and fluid manner.
-6.  **FORMAT:** Write the entire description as ONE CONTINUOUS SENTENCE. DO NOT use bullet points, numbering, or multiple paragraphs. The sentence MUST begin with "Design a...".
-7.  **LENGTH & QUALITY:** The prompt should aim for significant detail (conceptually around 500+ words, focus on richness), be visually descriptive, and flow naturally, as if instructing an artist to recreate the scene precisely.
-8.  **NO LUXURY EMPHASIS:** Avoid terms implying excessive luxury, opulence, or extravagance.
+Kullanıcı istediği stil: "${userPrompt}"
 
-Produce ONLY the single-sentence prompt text adhering strictly to all rules above. Output no other introductory or concluding text.`,
+Bu prompt şu özellikleri taşımalı:
+1. Odanın tüm detaylarını dikkate alarak, var olan mimari elemanları (duvarlar, zemin, pencereler, tavan) doğru bir şekilde tarif et
+2. Kullanıcının istediği stilde bir iç mekan tasarımını, mobilyalar, aksesuarlar, renkler, dokular ile zengin bir şekilde tanımla
+3. Aydınlatma, malzemeler, yerleşim ve genel atmosferi detaylı bir şekilde akıcı bir dille açıkla
+4. Tüm bunları tek bir sürekli cümle olarak yaz - madde işaretleri veya birden fazla cümle kullanma
+5. Odanın mimari yapısını değiştirmeden, sadece dekorasyon ekleyen bir yaklaşım kullan
+6. Mobilyaların konumlarını ve birbiriyle olan ilişkilerini net ve doğal bir şekilde açıkla
+7. Renk paleti, dokular ve genel ambiyansı detaylı olarak tanımla
+8. Promptu "Design a..." ile başlat
+
+Örneğin şu şekilde bir prompt olabilir (ama içeriği kopyalama, sadece formatını takip et):
+"Design a bright, modern, and minimalist living room inside a spacious apartment featuring light natural wood flooring, a smooth off-white wall in the center, a vertical wooden slat accent wall on the left side, and large floor-to-ceiling windows with wooden frames and partially opened wooden blinds on the right side overlooking a distant cityscape under a clear sky; fill the space with a low-profile modular sofa in light beige or soft grey positioned centrally against the back wall, complemented by a slim rectangular light wood coffee table with clean minimalist lines placed in front, a single cozy armchair with neutral fabric and wooden legs positioned near the windows, and a soft textured area rug in light neutral tones anchoring the seating area, add a tall potted plant like a fiddle-leaf fig or olive tree in a simple matte ceramic pot placed in the right corner near the windows, hang one large abstract painting in soft muted tones like beige and grey on the smooth wall between the wooden slats and windows, introduce a minimalistic floor lamp with a thin black or gold metallic frame standing next to the sofa, and ensure the entire color palette remains warm, natural, and airy with tones of beige, white, pale grey, light oak, and subtle matte black accents, maintaining abundant natural daylight, deep shadows, clean lines, open negative space, and an overall feeling of peaceful sophistication and uncluttered elegance."
+
+Sadece promptu üret, başka açıklama veya ek metin yazma. Prompt en az 500 kelime olmalı ve son derece ayrıntılı, akıcı, tek bir cümle halinde olmalı.`,
         },
       ];
     } catch (imageError) {
@@ -83,25 +88,20 @@ Produce ONLY the single-sentence prompt text adhering strictly to all rules abov
       // Sadece metin tabanlı promptu kullan (görüntüsüz)
       promptContent = [
         {
-          inlineData: {
-            data: base64Data,
-            mimeType: mimeType,
-          },
-        },
-        {
-          text: `TASK: Analyze the provided room photograph METICULOUSLY and generate an extremely detailed interior design prompt based on the user's desired style: "${userPrompt}".
-
-STRICT RULES & CONSTRAINTS:
-1.  **ARCHITECTURAL FIDELITY (CRITICAL RULE):** You MUST strictly adhere to the VISIBLE existing architectural structure shown in the photograph. The position, shape, size, and type of walls, windows, doors, ceilings, floors, and any other fixed structural elements (columns, niches, etc.) MUST NOT be altered. Describe these existing elements accurately within the prompt.
-2.  **PROHIBITIONS:** DO NOT add new windows, doors, walls, balconies, or stairs. DO NOT change the size, shape, or location of existing ones. DO NOT alter the ceiling height or type. DO NOT invent or describe exterior views (cityscape, nature, etc.) UNLESS they are CLEARLY VISIBLE through the windows in the original photograph. If the view is not visible or unclear, MAKE NO ASSUMPTIONS and DO NOT ADD a view description. Maintain the room's fundamental geometry and proportions.
-3.  **FOCUS:** Your task is SOLELY interior decoration and furnishing. Based on the user's style ("${userPrompt}"), populate the room ONLY with furniture (sofas, tables, chairs), lighting fixtures (chandeliers, lamps), rugs/carpets, window treatments (curtains, blinds), plants, artwork, shelves, accessories, and decorative objects.
-4.  **PLACEMENT:** Describe the placement and arrangement of all furniture and objects LOGICALLY and REALISTICALLY within the actual dimensions and layout of the room shown in the photograph. Clearly state the relationships between items (e.g., "a coffee table placed in front of the sofa," "a reading nook positioned by the window").
-5.  **DETAIL LEVEL:** Richly describe the color palette, materials (wood types, metal finishes, fabric textures), textures, lighting atmosphere (natural light as visible, artificial sources, shadows), and overall ambiance in a descriptive and fluid manner.
-6.  **FORMAT:** Write the entire description as ONE CONTINUOUS SENTENCE. DO NOT use bullet points, numbering, or multiple paragraphs. The sentence MUST begin with "Design a...".
-7.  **LENGTH & QUALITY:** The prompt should aim for significant detail (conceptually around 500+ words, focus on richness), be visually descriptive, and flow naturally, as if instructing an artist to recreate the scene precisely.
-8.  **NO LUXURY EMPHASIS:** Avoid terms implying excessive luxury, opulence, or extravagance.
-
-Produce ONLY the single-sentence prompt text adhering strictly to all rules above. Output no other introductory or concluding text.`,
+          text: `Create an extremely detailed and well-furnished interior design prompt based on the user's desired style (${userPrompt}).
+          
+          The prompt must follow these rules:
+          1. Assume a modern, spacious room structure with plain white walls, wide windows, and wooden or glossy flooring.
+          2. Carefully observe the provided empty room image, and using the user's desired style (${userPrompt}), furnish and decorate the entire space, ensuring that every part of the room is utilized with furniture, accessories, decorations, rugs, lighting, art pieces, plants, shelves, and small decorative objects.
+          3. Describe in great detail the architectural elements such as walls, windows, flooring, and ceiling, and integrate them naturally into the design.
+          4. Fill the space fully — include sofas, armchairs, coffee tables, side tables, bookshelves, cabinets, bar carts, consoles, rugs, plants, vases, sculptures, chandeliers, wall lights, table lamps, floor lamps, art on the walls, and any additional decorative items; leave no area empty or barren.
+          5. Explain clearly and naturally the placement, positioning, and relationships between all furniture and objects within the space.
+          6. Describe the atmosphere, color palette, textures, material choices, lighting schemes, and overall mood in a descriptive, flowing narrative.
+          7. Write the entire prompt as one continuous, fluid sentence, without using bullet points, numbering, or breaking into multiple sentences.
+          8. The prompt must begin with "Design a..." and proceed in an immersive, visual storytelling style.
+          9. Use expressive language to vividly paint the image of the room, emphasizing balance, comfort, and harmony.
+          10. The final prompt must be at least 500 words long, extremely detailed, visually rich, and written as if guiding an interior artist to recreate the space perfectly.
+          11. Avoid any references to luxury, opulence, or extravagance in the design description.`,
         },
       ];
     }
@@ -412,8 +412,8 @@ exports.generateInterior = async (req, res) => {
             creativity: 1,
             lora_links: "",
             downscaling: false,
-            resemblance: 0.45,
-            scale_factor: 6,
+            resemblance: 0.6,
+            scale_factor: 4,
             tiling_width: 112,
             output_format: "png",
             tiling_height: 144,
@@ -455,8 +455,8 @@ exports.generateInterior = async (req, res) => {
                 creativity: 1,
                 lora_links: "",
                 downscaling: false,
-                resemblance: 0.45,
-                scale_factor: 6,
+                resemblance: 0.6,
+                scale_factor: 4,
                 tiling_width: 112,
                 output_format: "png",
                 tiling_height: 144,
@@ -841,8 +841,8 @@ exports.generateInteriorFromUrl = async (req, res) => {
             creativity: 1,
             lora_links: "",
             downscaling: false,
-            resemblance: 0.45,
-            scale_factor: 6,
+            resemblance: 0.6,
+            scale_factor: 4,
             tiling_width: 112,
             output_format: "png",
             tiling_height: 144,
@@ -884,8 +884,8 @@ exports.generateInteriorFromUrl = async (req, res) => {
                 creativity: 1,
                 lora_links: "",
                 downscaling: false,
-                resemblance: 0.45,
-                scale_factor: 6,
+                resemblance: 0.6,
+                scale_factor: 4,
                 tiling_width: 112,
                 output_format: "png",
                 tiling_height: 144,
@@ -1145,8 +1145,8 @@ exports.enhanceImageWithClarity = async (req, res) => {
         creativity: 1,
         lora_links: "",
         downscaling: false,
-        resemblance: 0.45,
-        scale_factor: 6,
+        resemblance: 0.6,
+        scale_factor: 4,
         tiling_width: 112,
         output_format: "png",
         tiling_height: 144,
@@ -1189,8 +1189,8 @@ exports.enhanceImageWithClarity = async (req, res) => {
               creativity: 1,
               lora_links: "",
               downscaling: false,
-              resemblance: 0.45,
-              scale_factor: 6,
+              resemblance: 0.6,
+              scale_factor: 4,
               tiling_width: 112,
               output_format: "png",
               tiling_height: 144,
@@ -1380,7 +1380,7 @@ exports.generatePromptWithGemini = async (req, res) => {
 
       // Gemini 1.5 Flash modelini yapılandır - koşullardan önce tanımla
       const model = genAI.getGenerativeModel({
-        model: "gemini-2.0-flash",
+        model: "gemini-1.5-flash",
       });
 
       // Client'dan gelen görüntü verisini kontrol et
@@ -1395,33 +1395,32 @@ exports.generatePromptWithGemini = async (req, res) => {
         );
 
         // Görüntü ile içerik isteğini oluştur
-        // Inside your createPromptWithGemini function, replace or augment the promptContent assignment with this English version:
-
         promptContent = [
           {
             inlineData: {
-              data: base64Image,
-              mimeType: "image/png",
+              data: base64Data,
+              mimeType: imageData.split(";")[0].split(":")[1],
             },
           },
           {
-            text: `Based on the provided empty room image, generate a highly detailed, single-sentence interior design prompt that adheres to the following requirements:
-1. Accurately describe all visible architectural elements (walls, flooring, windows, ceiling) without altering their dimensions or positions;
-2. Furnish and decorate the space according to the user’s requested style ("${userPrompt}"), including furniture, accessories, lighting, textures, and color palette in one continuous sentence;
-3. Describe the lighting scheme by referencing only the existing light direction and intensity evident in the photo;
-4. Begin the prompt with "Design a…" to clearly signal the creative instruction;
-5. Avoid using bullet points or line breaks—compose the entire prompt as one fluid sentence;
-6. Preserve the original perspective, room proportions, and spatial relationships at all times;
-7. Do not introduce any new architectural features (additional windows, doors, openings, or exterior views) that are not present in the image;
-8. Do not modify or reinterpret the existing flooring material—refer to it as "existing flooring" to reinforce its preservation;
-9. Reference only existing wall configurations and window frames—do not change their shape, size, color, or position;
-10. Do not add any external landscape, cityscape, or outdoor elements beyond what is already visible through the original windows;
-11. Position all decorative elements and furniture in relation to the current architectural layout without expanding or contracting room dimensions;
-12. Maintain the exact ceiling height and corner angles visible in the photograph—do not imply any structural changes;
-13. Use clear keywords like "existing architectural elements only" or "preserve original structure" to prompt strict adherence;
-14. Ensure the mood and atmosphere description align with natural daylight and existing shadow patterns;
-15. Emphasize textures and materials by naming only those present in the photo or the user’s chosen style;
-16. Write the entire description in English in one continuous sentence.`,
+            text: `Bu oda fotoğrafına bakarak, kullanıcının istediği tarza uygun çok detaylı bir iç mekan tasarımı promptu oluştur.
+
+Kullanıcı istediği stil: "${userPrompt}"
+
+Bu prompt şu özellikleri taşımalı:
+1. Odanın tüm detaylarını dikkate alarak, var olan mimari elemanları (duvarlar, zemin, pencereler, tavan) doğru bir şekilde tarif et
+2. Kullanıcının istediği stilde bir iç mekan tasarımını, mobilyalar, aksesuarlar, renkler, dokular ile zengin bir şekilde tanımla
+3. Aydınlatma, malzemeler, yerleşim ve genel atmosferi detaylı bir şekilde akıcı bir dille açıkla
+4. Tüm bunları tek bir sürekli cümle olarak yaz - madde işaretleri veya birden fazla cümle kullanma
+5. Odanın mimari yapısını değiştirmeden, sadece dekorasyon ekleyen bir yaklaşım kullan
+6. Mobilyaların konumlarını ve birbiriyle olan ilişkilerini net ve doğal bir şekilde açıkla
+7. Renk paleti, dokular ve genel ambiyansı detaylı olarak tanımla
+8. Promptu "Design a..." ile başlat
+
+Örneğin şu şekilde bir prompt olabilir (ama içeriği kopyalama, sadece formatını takip et):
+"Design a bright, modern, and minimalist living room inside a spacious apartment featuring light natural wood flooring, a smooth off-white wall in the center, a vertical wooden slat accent wall on the left side, and large floor-to-ceiling windows with wooden frames and partially opened wooden blinds on the right side overlooking a distant cityscape under a clear sky; fill the space with a low-profile modular sofa in light beige or soft grey positioned centrally against the back wall, complemented by a slim rectangular light wood coffee table with clean minimalist lines placed in front, a single cozy armchair with neutral fabric and wooden legs positioned near the windows, and a soft textured area rug in light neutral tones anchoring the seating area, add a tall potted plant like a fiddle-leaf fig or olive tree in a simple matte ceramic pot placed in the right corner near the windows, hang one large abstract painting in soft muted tones like beige and grey on the smooth wall between the wooden slats and windows, introduce a minimalistic floor lamp with a thin black or gold metallic frame standing next to the sofa, and ensure the entire color palette remains warm, natural, and airy with tones of beige, white, pale grey, light oak, and subtle matte black accents, maintaining abundant natural daylight, deep shadows, clean lines, open negative space, and an overall feeling of peaceful sophistication and uncluttered elegance."
+
+Sadece promptu üret, başka açıklama veya ek metin yazma. Prompt en az 500 kelime olmalı ve son derece ayrıntılı, akıcı, tek bir cümle halinde olmalı.`,
           },
         ];
       } else {
@@ -1432,29 +1431,22 @@ exports.generatePromptWithGemini = async (req, res) => {
         // Sadece metin tabanlı promptu kullan
         promptContent = [
           {
-            inlineData: {
-              data: base64Image,
-              mimeType: "image/png",
-            },
-          },
-          {
-            text: `Based on the provided empty room image, generate a highly detailed, single-sentence interior design prompt that adheres to the following requirements:
-1. Accurately describe all visible architectural elements (walls, flooring, windows, ceiling) without altering their dimensions or positions;
-2. Furnish and decorate the space according to the user’s requested style ("${userPrompt}"), including furniture, accessories, lighting, textures, and color palette in one continuous sentence;
-3. Describe the lighting scheme by referencing only the existing light direction and intensity evident in the photo;
-4. Begin the prompt with "Design a…" to clearly signal the creative instruction;
-5. Avoid using bullet points or line breaks—compose the entire prompt as one fluid sentence;
-6. Preserve the original perspective, room proportions, and spatial relationships at all times;
-7. Do not introduce any new architectural features (additional windows, doors, openings, or exterior views) that are not present in the image;
-8. Do not modify or reinterpret the existing flooring material—refer to it as "existing flooring" to reinforce its preservation;
-9. Reference only existing wall configurations and window frames—do not change their shape, size, color, or position;
-10. Do not add any external landscape, cityscape, or outdoor elements beyond what is already visible through the original windows;
-11. Position all decorative elements and furniture in relation to the current architectural layout without expanding or contracting room dimensions;
-12. Maintain the exact ceiling height and corner angles visible in the photograph—do not imply any structural changes;
-13. Use clear keywords like "existing architectural elements only" or "preserve original structure" to prompt strict adherence;
-14. Ensure the mood and atmosphere description align with natural daylight and existing shadow patterns;
-15. Emphasize textures and materials by naming only those present in the photo or the user’s chosen style;
-16. Write the entire description in English in one continuous sentence.`,
+            text: `Kullanıcının istediği stilde (${userPrompt}) bir iç mekan tasarımı için çok detaylı bir prompt oluştur.
+
+Bu prompt şu özellikleri taşımalı:
+1. Modern bir geniş oda için tasarım düşün: Düz beyaz duvarlar, geniş pencereler, ahşap veya parlak zemin
+2. Kullanıcının istediği stilde (${userPrompt}) bir iç mekan tasarımını, mobilyalar, aksesuarlar, renkler, dokular ile zengin bir şekilde tanımla
+3. Aydınlatma, malzemeler, yerleşim ve genel atmosferi detaylı bir şekilde akıcı bir dille açıkla
+4. Tüm bunları tek bir sürekli cümle olarak yaz - madde işaretleri veya birden fazla cümle kullanma
+5. Oturma odası için mobilya yerleşimi, dekorasyon, aydınlatma ve aksesuarları detaylı anlat
+6. Mobilyaların konumlarını ve birbiriyle olan ilişkilerini net ve doğal bir şekilde açıkla
+7. Renk paleti, dokular ve genel ambiyansı detaylı olarak tanımla
+8. Promptu "Design a..." ile başlat
+
+Örneğin şu şekilde bir prompt olabilir (ama içeriği kopyalama, sadece formatını takip et):
+"Design a bright, modern, and minimalist living room inside a spacious apartment featuring light natural wood flooring, a smooth off-white wall in the center, a vertical wooden slat accent wall on the left side, and large floor-to-ceiling windows with wooden frames and partially opened wooden blinds on the right side overlooking a distant cityscape under a clear sky; fill the space with a low-profile modular sofa in light beige or soft grey positioned centrally against the back wall, complemented by a slim rectangular light wood coffee table with clean minimalist lines placed in front, a single cozy armchair with neutral fabric and wooden legs positioned near the windows, and a soft textured area rug in light neutral tones anchoring the seating area, add a tall potted plant like a fiddle-leaf fig or olive tree in a simple matte ceramic pot placed in the right corner near the windows, hang one large abstract painting in soft muted tones like beige and grey on the smooth wall between the wooden slats and windows, introduce a minimalistic floor lamp with a thin black or gold metallic frame standing next to the sofa, and ensure the entire color palette remains warm, natural, and airy with tones of beige, white, pale grey, light oak, and subtle matte black accents, maintaining abundant natural daylight, deep shadows, clean lines, open negative space, and an overall feeling of peaceful sophistication and uncluttered elegance."
+
+Sadece promptu üret, başka açıklama veya ek metin yazma. Prompt en az 500 kelime olmalı ve son derece ayrıntılı, akıcı, tek bir cümle halinde olmalı.`,
           },
         ];
       }
